@@ -42,7 +42,7 @@ pub fn part_two(input: &str) -> Option<u32> {
 
     calories.sort_by(|a, b| b.cmp(a));
 
-    Some(calories[0] + calories[1] + calories[2])
+    Some(calories.iter().take(3).sum())
 }
 
 fn main() {
