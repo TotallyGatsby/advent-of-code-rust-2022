@@ -1,4 +1,4 @@
-use std::str::FromStr;
+use std::{cmp::Ordering, str::FromStr};
 
 /*
  * Use this file if you want to extract helpers from your solutions.
@@ -12,6 +12,14 @@ pub fn split_to_ints(input: &str, delim: &str) -> Option<(u32, u32)> {
     let second = u32::from_str(second_str).ok()?;
 
     Some((first, second))
+}
+
+pub fn normalize(n: i32) -> i32 {
+    match n.cmp(&0) {
+        Ordering::Less => -1,
+        Ordering::Equal => 0,
+        Ordering::Greater => 1,
+    }
 }
 
 #[test]
@@ -40,4 +48,13 @@ fn test_parse_input() {
     let input = "-4--5";
     let result = split_to_ints(input, "-");
     assert_eq!(result, None);
+}
+
+#[test]
+fn test_normalize() {
+    assert_eq!(normalize(-5), -1);
+    assert_eq!(normalize(-1), -1);
+    assert_eq!(normalize(0), 0);
+    assert_eq!(normalize(1), 1);
+    assert_eq!(normalize(5), 1);
 }
